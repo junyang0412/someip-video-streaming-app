@@ -23,12 +23,14 @@ void availability_handler(
         request->set_service(video_streaming_service);
         request->set_instance(instance_id);
         request->set_method(actions::start_capture);
-
+        request->set_session(session_id);
         application->send(request);
     } else if(status == status::unavailable) {
 
     }
 }
+
+std::vector<vsomeip::byte_t> frame_buff;
 
 void on_message(const std::shared_ptr<vsomeip::message>& _message) {
     switch(_message->get_message_type()) {
@@ -38,9 +40,16 @@ void on_message(const std::shared_ptr<vsomeip::message>& _message) {
             auto data = payload->get_data();
             auto size = payload->get_length();
             std::cout << "LENGTH: " << size << std::endl;
-            cv::Mat rec_img(480,640,16,data);
-            cv::imshow("RCV_IMG",rec_img);
-            cv::waitKey(1);
+            if(frame_buff.size() == 921600) {
+                cv::Mat rec_img(480,640,16,frame_buff.data());
+                cv::imshow("RCV_IMG",rec_img);
+                cv::waitKey(1);
+                frame_buff.clear();
+            } else {
+                for(size_t j{};j<size;j++) {
+                    frame_buff.push_back(*data++);
+                }
+            }
             //exit(0);
         } break;
     }
@@ -59,6 +68,7 @@ int main(int argc, char const *argv[]) {
         actions::stream_rcv,
         on_message
     );
+    
     application->request_service(video_streaming_service,instance_id);
     application->start();
     return 0;

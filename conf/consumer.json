@@ -1,5 +1,5 @@
 {
-    "unicast" : "172.17.0.1",
+    "unicast" : "172.22.236.95",
     "logging" :
     {
         "level" : "debug",
@@ -14,7 +14,7 @@
             "id" : "0x1313"
         } 
     ],
-    "routing" : "StreamSourceConsumer",
+    "routing" : "StreamSource",
     "service-discovery" :
     {
         "enable" : "true",
