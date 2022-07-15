@@ -47,7 +47,7 @@ void on_message(const std::shared_ptr<vsomeip::message>& _message) {
 }
 
 int main(int argc, char const *argv[]) {
-    application = vsomeip::runtime::get()->create_application("StreamSource");
+    application = vsomeip::runtime::get()->create_application("StreamSourceConsumer");
     application->init();
     application->register_availability_handler(
         video_streaming_service, instance_id,
