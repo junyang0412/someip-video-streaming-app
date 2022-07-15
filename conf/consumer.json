@@ -14,11 +14,11 @@
             "id" : "0x1313"
         } 
     ],
-    "routing" : "StreamSource",
+    "routing" : "StreamSourceConsumer",
     "service-discovery" :
     {
         "enable" : "true",
-        "multicast" : "224.0.0.1",
+        "multicast" : "172.22.236.178",
         "port" : "30490",
         "protocol" : "udp",
         "initial_delay_min" : "10",

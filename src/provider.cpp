@@ -43,7 +43,7 @@ void on_message(const std::shared_ptr<vsomeip::message>& _message) {
             for(size_t i{};i<total_data_packets;i++) {
                 size_t len{0};
                 std::vector<vsomeip::byte_t> payload_bytestream;
-                while(img_data != img_end) {
+                while((img_data != img_end) && (len < 1400)) {
                     //std::cout << *img_data << " ";
                     payload_bytestream.push_back(*img_data++);
                     len++;
